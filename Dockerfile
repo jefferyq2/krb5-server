@@ -1,7 +1,7 @@
 FROM ubuntu
 MAINTAINER Marcin Kasi�ski <marcin.kasinski@gmail.com> 
 
-RUN apt update && apt install -y krb5-kdc krb5-admin-server supervisor 
+RUN apt update && apt install -y krb5-kdc krb5-admin-server supervisor words wamerican
 
 ADD conf/supervisord.conf /etc/supervisord.conf
 ADD start.sh /
