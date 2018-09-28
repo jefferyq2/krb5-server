@@ -13,6 +13,31 @@ docker kill krb5-server | true && docker rm krb5-server | true && docker run -d 
 docker exec -it krb5-server /bin/bash
 
 
+# Setup Kerberos
+
+* port 88
+
+  
+##  setup Kerberos server  
+
+## prepare Kerberos environment
+```
+export REALM="KAFKA.SECURE"
+export ADMINPW="this-is-unsecure"
+
+
+#/usr/sbin/kdb5_util -r KAFKA.SECURE destroy
+/usr/sbin/kdb5_util create -s -r KAFKA.SECURE -P secret
+kadmin.local -q "add_principal -pw secret admin/admin"
+
+sudo systemctl restart krb5kdc
+sudo systemctl restart kadmin
+```
+## check services
+```
+sudo systemctl status krb5kdc
+sudo systemctl status kadmin
+```
 
 
 
