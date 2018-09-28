@@ -27,8 +27,14 @@ export ADMINPW="this-is-unsecure"
 
 
 #/usr/sbin/kdb5_util -r KAFKA.SECURE destroy
-/usr/sbin/kdb5_util create -s -r KAFKA.SECURE -P secret
-kadmin.local -q "add_principal -pw secret admin/admin"
+/usr/sbin/kdb5_util create -s -r $REALM -P $ADMINPW
+kadmin.local -q "add_principal -pw $ADMINPW admin/admin"
+
+
+
+supervisorctl restart kadmind
+supervisorctl restart krb5kdc
+
 
 sudo systemctl restart krb5kdc
 sudo systemctl restart kadmin
