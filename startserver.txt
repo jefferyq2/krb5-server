@@ -32,23 +32,10 @@ kadmin.local -q "add_principal -pw $ADMINPW admin/admin"
 
 
 
-supervisorctl restart kadmind
-supervisorctl restart krb5kdc
-
-
-sudo systemctl restart krb5kdc
-sudo systemctl restart kadmin
-```
-## check services
-```
-sudo systemctl status krb5kdc
-sudo systemctl status kadmin
-```
-
-
-
-
-
+kadmin.local -q "add_principal -randkey reader@KAFKA.SECURE"
+kadmin.local -q "add_principal -randkey writer@KAFKA.SECURE"
+kadmin.local -q "add_principal -randkey admin@KAFKA.SECURE"
+  
 
 
 
